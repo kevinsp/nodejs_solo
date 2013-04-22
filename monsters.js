@@ -44,12 +44,13 @@ Monster.prototype.defend = function(attackPoints)
 	console.log("attpoints: "+attackPoints);
 	if (attackPoints > 0)
 	{
+		console.log("health before: "+Monster.prototype.getHealth());
 		this._health -= attackPoints;
-		console.log("health: "+this._health);
+		console.log("health after: "+Monster.prototype.getHealth());
 	}
 	if (this._health < 1)
 	{
-		console.log("The fight is over! And the winner is %s", Referee._fighters["attacking"].name);
+		console.log("The fight is over! And the winner is %s", Referee._fighters[attacking].name);
 		process.exit(0);
 	}
 };
