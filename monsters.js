@@ -17,9 +17,11 @@ function random (min, max) {
 function Monster(attackOrder)
 {
 	this._attackOrder = attackOrder;
-	this._health = 5;
-	this._curAttack = 0;
 }
+
+Monster.prototype._health = 5;
+
+Monster.prototype._curAttack = 0;
 
 Monster.prototype.getHealth = function()
 {
@@ -33,26 +35,34 @@ Monster.prototype.growl = function()
 
 Monster.prototype.attack = function(victim)
 {
+	console.log("attacker: "+this.name);	
 	this.growl();
-	victim.defend(this.attacks[this._attackOrder[this._curAttack]]["attack"]);
+	console.log("victim: "+victim.name);
+	console.log("attack counter: "+this._curAttack);
+	console.log("attack started: "+this._attackOrder[this._curAttack]);
+	victim.defend(this.attacks[this._attackOrder[this._curAttack]].attack);
 	this._curAttack ++;
 };
 
 Monster.prototype.defend = function(attackPoints)
 {
-	attackPoints -= this.attacks[this._attackOrder[this._curAttack]]["defense"];
-	console.log("attpoints: "+attackPoints);
+	console.log("attpoints before: "+attackPoints);
+	console.log("function defend, attack counter: "+this._curAttack);
+	console.log("current attack: "+this._attackOrder[this._curAttack]);
+	attackPoints -= this.attacks[this._attackOrder[this._curAttack]].defense;
+	console.log("attpoints after: "+attackPoints);
+	console.log("health before: "+this._health);
 	if (attackPoints > 0)
 	{
-		console.log("health before: "+Monster.prototype.getHealth());
 		this._health -= attackPoints;
-		console.log("health after: "+Monster.prototype.getHealth());
 	}
+	console.log("health after: "+this._health);
 	if (this._health < 1)
 	{
-		console.log("The fight is over! And the winner is %s", Referee._fighters[attacking].name);
+		console.log("The fight is over! And the loser is %s", this.name);
 		process.exit(0);
 	}
+	this._curAttack ++;
 };
 
 function Godzilla()
@@ -63,48 +73,33 @@ function Godzilla()
 
 Godzilla.prototype = Object.create(Monster.prototype);
 
-Godzilla.prototype.getHealth = function()
-{
-	Monster.prototype.getHealth.apply(this, arguments);
-};
-
 Godzilla.prototype.growl = function()
 {
 	console.log("GRUUUAAAAAAH!!!");
 };
 
-Godzilla.prototype.attack = function(victim)
-{
-	Monster.prototype.attack.apply(this, arguments);
-};
-
-Godzilla.prototype.defend = function(attackPoints)
-{
-	Monster.prototype.defend.apply(this, arguments);
-};
-
 Godzilla.prototype.attacks =
 {
-    RoundHouseKick:
-	{
-        attack: 8,
-        defense: 2
-    },
-    Punch:
+	Punch:
 	{
         attack: 5,
         defense: 4
-    },
+	},
 	Tackle:
 	{
         attack: 2,
         defense: 5
-    },
+	},
 	BattleCry:
 	{
         attack: 5,
         defense: 1
-    }
+	},
+	RoundHouseKick:
+	{
+        attack: 8,
+        defense: 2
+	}
 };
 
 function KingKong()
@@ -115,24 +110,9 @@ function KingKong()
 
 KingKong.prototype = Object.create(Monster.prototype);
 
-KingKong.prototype.getHealth = function()
-{
-	Monster.prototype.getHealth.apply(this, arguments);
-};
-
 KingKong.prototype.growl = function()
 {
 	console.log("BONGOBONGO!!!");
-};
-
-KingKong.prototype.attack = function(victim)
-{
-	Monster.prototype.attack.apply(this, arguments);
-};
-
-KingKong.prototype.defend = function(attackPoints)
-{
-	Monster.prototype.defend.apply(this, arguments);
 };
 
 KingKong.prototype.attacks =
@@ -140,12 +120,12 @@ KingKong.prototype.attacks =
     Stamp:
 	{
         attack: 8,
-        defense: 1
+        defense: 3
     },
     Punch:
 	{
         attack: 5,
-        defense: 4
+        defense: 2
     },
 	Tackle:
 	{
@@ -267,9 +247,11 @@ Referee.prototype.startFight = function() {
 
 //EXECUTION
 var godzilla = new Godzilla(["Punch", "Tackle", "BattleCry", "RoundHouseKick"]);
+//*
 var kingKong = new KingKong(["Stamp", "Punch", "Tackle", "DrumOnChest"]);
 
 var referee = new Referee();
 referee.greetMonsters(kingKong, godzilla);
 referee.checkForCheaters();
 referee.startFight();
+//*/
