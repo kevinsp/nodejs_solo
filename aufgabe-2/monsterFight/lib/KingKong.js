@@ -1,0 +1,41 @@
+var Monster = require("../node_modules/monsters/lib/Monster.js");
+
+function KingKong()
+{
+	Monster.apply(this, arguments);
+}
+
+KingKong.prototype.name = "KingKong";
+
+KingKong.prototype = Object.create(Monster.prototype);
+
+KingKong.prototype.growl = function()
+{
+	console.log("BONGOBONGO!!!");
+};
+
+KingKong.prototype.attacks =
+{
+    Stamp:
+	{
+        attack: 8,
+        defense: 3
+    },
+    Punch:
+	{
+        attack: 5,
+        defense: 2
+    },
+	Tackle:
+	{
+        attack: 1,
+        defense: 3
+    },
+	DrumOnChest:
+	{
+        attack: 6,
+        defense: 4
+    }
+};
+
+module.exports = KingKong;

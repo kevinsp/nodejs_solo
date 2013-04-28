@@ -1,0 +1,7 @@
+{
+    "name": "monsterFight",
+    "version": "0.0.1",
+    "description": "monsterFight module",
+    "main": "./node_modules/monsters/lib/index.js",
+    "author": "kevinsp"
+}
