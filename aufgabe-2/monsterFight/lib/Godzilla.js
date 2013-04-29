@@ -5,9 +5,9 @@ function Godzilla()
 	Monster.apply(this, arguments);
 }
 
-Godzilla.prototype.name = "Godzilla";
-
 Godzilla.prototype = Object.create(Monster.prototype);
+
+Godzilla.prototype.name = "Godzilla";
 
 Godzilla.prototype.growl = function()
 {

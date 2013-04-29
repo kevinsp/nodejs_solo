@@ -5,9 +5,9 @@ function KingKong()
 	Monster.apply(this, arguments);
 }
 
-KingKong.prototype.name = "KingKong";
-
 KingKong.prototype = Object.create(Monster.prototype);
+
+KingKong.prototype.name = "KingKong";
 
 KingKong.prototype.growl = function()
 {

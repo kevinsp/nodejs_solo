@@ -2,6 +2,10 @@
     "name": "monsterFight",
     "version": "0.0.1",
     "description": "monsterFight module",
+    "dependencies":
+	{
+		"ansicolors" : "*"
+	}
     "main": "./node_modules/monsters/lib/index.js",
     "author": "kevinsp"
 }
