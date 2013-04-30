@@ -11,7 +11,8 @@ Godzilla.prototype.name = "Godzilla";
 
 Godzilla.prototype.growl = function()
 {
-	console.log("GRUUUAAAAAAH!!!");
+	this.emit("growl", "GRUUUAAAAAAH!!!");
+	//console.log("GRUUUAAAAAAH!!!");
 };
 
 Godzilla.prototype.attacks =

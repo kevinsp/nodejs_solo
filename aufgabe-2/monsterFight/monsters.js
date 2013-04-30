@@ -10,7 +10,7 @@ var kingKong = new KingKong(["Stamp", "Punch", "Tackle", "DrumOnChest"]);
 
 godzilla.on("growl", function(growl)
 	{
-		console.log(colors.cyan(this.name+" growled: "+growl));
+		console.log(colors.green(colors.bgBrightWhite(this.name+" growled: "+growl)));
 	});
 godzilla.on("hit", function(damage)
 	{
@@ -18,7 +18,7 @@ godzilla.on("hit", function(damage)
 	});
 godzilla.on("attack", function(victim)
 	{
-		console.log(colors.cyan(this.name+" is attacking "+victim));
+		console.log(colors.brightCyan(this.name+" is attacking "+victim));
 	});
 godzilla.on("defend", function()
 	{
@@ -33,7 +33,7 @@ godzilla.on("die", function()
 
 kingKong.on("growl", function(growl)
 	{
-		console.log(colors.cyan(this.name+" growled: "+growl));
+		console.log(colors.magenta(colors.bgBrightWhite(this.name+" growled: "+growl)));
 	});
 kingKong.on("hit", function(damage)
 	{
@@ -41,7 +41,7 @@ kingKong.on("hit", function(damage)
 	});
 kingKong.on("attack", function(victim)
 	{
-		console.log(colors.cyan(this.name+" is attacking "+victim));
+		console.log(colors.brightCyan(this.name+" is attacking "+victim));
 	});
 kingKong.on("defend", function()
 	{

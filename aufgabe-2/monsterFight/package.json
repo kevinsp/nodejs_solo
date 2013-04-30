@@ -4,8 +4,9 @@
     "description": "monsterFight module",
     "dependencies":
 	{
-		"ansicolors" : "*"
-	}
+		"ansicolors" : "*",
+		"monsters" : "*"
+	},
     "main": "./node_modules/monsters/lib/index.js",
     "author": "kevinsp"
 }

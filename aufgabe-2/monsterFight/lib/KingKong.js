@@ -11,7 +11,8 @@ KingKong.prototype.name = "KingKong";
 
 KingKong.prototype.growl = function()
 {
-	console.log("BONGOBONGO!!!");
+	this.emit("growl", "BONGOBONGO!!!");
+	//console.log("BONGOBONGO!!!");
 };
 
 KingKong.prototype.attacks =
