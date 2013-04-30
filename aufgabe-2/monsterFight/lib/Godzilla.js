@@ -1,4 +1,4 @@
-var Monster = require("../node_modules/monsters/lib/Monster.js");
+var Monster = require("monsters").Monster;
 
 function Godzilla()
 {
