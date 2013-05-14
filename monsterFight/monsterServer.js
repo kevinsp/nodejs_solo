@@ -101,60 +101,73 @@ server = http.createServer();
 
 server.on("request", function onRequest(req, res)
 {
-	var godzilla = new Godzilla(["Punch", "Tackle", "BattleCry", "RoundHouseKick"]);
+	/*var godzilla = new Godzilla(["Punch", "Tackle", "BattleCry", "RoundHouseKick"]);
 	var kingKong = new KingKong(["Stamp", "Punch", "Tackle", "DrumOnChest"]);
-	var referee = new Referee();
-	//res.setHeader("Content-Type","text/json");
+	var referee = new Referee();*/
+	res.setHeader("Content-Type","text/json");
 	if (req.url === "/")
 	{
+		var godzilla = new Godzilla(["Punch", "Tackle", "BattleCry", "RoundHouseKick"]);
+		var kingKong = new KingKong(["Stamp", "Punch", "Tackle", "DrumOnChest"]);
+		var referee = new Referee();
 		godzilla.on("growl", function(growl)
 		{
-			res.write(colors.green(colors.bgBrightWhite(this.name+" growled: "+growl)));
+			//res.write(colors.green(colors.bgBrightWhite(this.name+" growled: "+growl)));
+			res.write(this.name+" growled: "+growl+"\n");
 			//fs.createReadStream("index.html").pipe(colors.bgBrightWhite(this.name+" growled: "+growl))
 			//console.log(colors.green(colors.bgBrightWhite(this.name+" growled: "+growl)));
 		});
 		godzilla.on("hit", function(damage)
 		{
-			res.write(colors.red(colors.bgYellow("%s got hit with %s (remaining %s health)")),
-				this.name, damage, this.getHealth());
+			//res.write(colors.red(colors.bgYellow("%s got hit with %s (remaining %s health)")),
+			//	this.name, damage, this.getHealth());
+			var hit = this.name+" got hit with "+damage+" (remaining "+this.getHealth()+" health)\n";
+			res.write(hit);
 		});
 		godzilla.on("attack", function(victim)
 		{
-			res.write(colors.brightCyan(this.name+" is attacking "+victim));
+			//res.write(colors.brightCyan(this.name+" is attacking "+victim));
+			res.write(this.name+" is attacking "+victim+"\n");
 		});
 		godzilla.on("defend", function()
 		{
-			res.write(colors.blue(colors.bgYellow(this.name+" survived the attack without having lost life.")));
+			//.write(colors.blue(colors.bgYellow(this.name+" survived the attack without having lost life.")));
+			res.write(this.name+" survived the attack without having lost life.\n");
 		});
 		godzilla.on("die", function()
 		{
-			res.write(colors.bgRed(colors.yellow("The fight is over! And the loser is %s")), this.name);
-			res.end();
-			process.exit(0);
+			//res.write(colors.bgRed(colors.yellow("The fight is over! And the loser is %s")), this.name);
+			res.write("The fight is over! And the loser is "+this.name+"\n");
+			//process.exit(0);
 		});
 
 		kingKong.on("growl", function(growl)
 		{
-			res.write(colors.magenta(colors.bgBrightWhite(this.name+" growled: "+growl)));
+			//res.write(colors.magenta(colors.bgBrightWhite(this.name+" growled: "+growl)));
+			res.write(this.name+" growled: "+growl+"\n");
 		});
 		kingKong.on("hit", function(damage)
 		{
-			res.write(colors.red(colors.bgYellow("%s got hit with %s (remaining %s health)")),
-				this.name, damage, this.getHealth());
+			//res.write(colors.red(colors.bgYellow("%s got hit with %s (remaining %s health)")),
+			//	this.name, damage, this.getHealth());
+			var hit = this.name+" got hit with "+damage+" (remaining "+this.getHealth()+" health)\n";
+			res.write(hit);
 		});
 		kingKong.on("attack", function(victim)
 		{
-			res.write(colors.brightCyan(this.name+" is attacking "+victim));
+			//res.write(colors.brightCyan(this.name+" is attacking "+victim));
+			res.write(this.name+" is attacking "+victim+"\n");
 		});
 		kingKong.on("defend", function()
 		{
-			res.write(colors.blue(colors.bgYellow(this.name+" survived the attack without having lost life.")));
+			//.write(colors.blue(colors.bgYellow(this.name+" survived the attack without having lost life.")));
+			res.write(this.name+" survived the attack without having lost life.\n");
 		});
 		kingKong.on("die", function()
 		{
-			res.write(colors.bgRed(colors.yellow("The fight is over! And the loser is %s")), this.name);
-			res.end();
-			process.exit(0);
+			//res.write(colors.bgRed(colors.yellow("The fight is over! And the loser is %s")), this.name);
+			res.write("The fight is over! And the loser is "+this.name+"\n");
+			//process.exit(0);
 		});
 
 		referee.on("moderation", function(text)
@@ -166,43 +179,50 @@ server.on("request", function onRequest(req, res)
 		});
 		referee.on("end", function(result)
 		{
-			//console.log("end logged");
-			res.write(result);
+			//console.log("result: "+result);
+			res.write("\n\n"+result+"\n");
 			fights.push(result);
-			res.end();
 		});
-		referee.on("round", function()
+		referee.on("round", function(cnt)
 		{
-			res.write("round logged");
+			res.write("\nround "+cnt+" logged\n");
 		});
 		referee.greetMonsters(kingKong, godzilla);
 		referee.checkForCheaters();
 		referee.startFight();
-		//fs.createReadStream("index.html").pipe(res);
 	}
-	else if (req.url === "/stat/:counter?")
+	else if (req.url == "/stat/:counter?")
 	{
 		if (req.params.counter)
 		{
 			if (fights[req.params.counter-1])
 			{
 				res.write(fights[req.params.counter-1]);
-				res.end();
 			}
 			else
 			{
-				res.write("Fight "+req.params.counter+" not done yet!");
-				res.end();
+				res.write("Fight "+req.params.counter+" not done yet!\n");
 			}
 		}
 		else
 		{
-			for (fight in fights)
+			if (fights)
 			{
-				res.write(fight);
-				res.end();
+				for (fight in fights)
+				{
+					res.write(fight+"\n\n");
+				}
+			}
+			else
+			{
+				res.write("No fights scheduled yet!");
 			}
 		}
+	}
+	else
+	{
+		res.statusCode = 404;
+		res.end();
 	}
 });
 
