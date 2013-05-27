@@ -5,7 +5,9 @@
     "dependencies":
 	{
 		"ansicolors" : "*",
-		"monsters" : "*"
+		"monsters" : "*",
+		"connect" : "*",
+		"express" : "*"
 	},
     "main": "./node_modules/monsters/lib/index.js",
     "author": "kevinsp"
