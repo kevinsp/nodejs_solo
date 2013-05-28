@@ -268,6 +268,7 @@ app.get("/", function(req, res)
 	var godzilla = new Godzilla(["Punch", "Tackle", "BattleCry", "RoundHouseKick"]);
 	var kingKong = new KingKong(["Stamp", "Punch", "Tackle", "DrumOnChest"]);
 	var referee = new Referee();
+	res.setHeader("Content-Type","text/json");
 	godzilla.on("growl", function(growl)
 	{
 		//res.write(colors.green(colors.bgBrightWhite(this.name+" growled: "+growl)));
